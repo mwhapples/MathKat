@@ -1,0 +1,3 @@
+[submodule "MathCAT"]
+	path = MathCAT
+	url = https://github.com/NSoiffer/MathCAT.git
