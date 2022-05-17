@@ -19,4 +19,8 @@ class MathKatTest {
         val expected = "MathCAT could not find a rules dir -- something failed in installation?\nCould not find rules dir in someinvalidDirectory or lacking permissions to read the dir!\n\n"
         assertEquals(expected, exceptionMessage.message)
     }
+    @Test
+    fun testSetRulesDirectoryCorrectlyDoesNotExcept() {
+        MathKat.setRulesDir(System.getProperty("onl.mdw.mathkat.rulesDir"))
+    }
 }
