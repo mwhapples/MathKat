@@ -53,6 +53,10 @@ class MathKatTest {
         assertEquals("50", MathKat.getPreference("Volume"))
     }
     @Test
+    fun testGetpreferenceInvalid() {
+        assertFailsWith(RuntimeException::class) { MathKat.getPreference("SomeRandomInvalidPreference") }
+    }
+    @Test
     fun testGetBrailleAll() {
         val mathml = "<math><mrow><mi>y</mi><mo>=</mo><mi>x</mi><mo>+</mo><mn>2</mn></mrow></math>"
         MathKat.setMathml(mathml)
