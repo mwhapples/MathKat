@@ -12,7 +12,7 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
-    systemProperty("onl.mdw.mathkat.rulesDir", File("$rootDir/MathCAT/Rules/").absolutePath)
+    systemProperty("onl.mdw.mathkat.rulesDir", File("$rootDir/MathCAT/Rules").absolutePath)
 }
 rustImport {
     baseDir.set("/META-INF/native")
