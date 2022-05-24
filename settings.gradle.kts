@@ -6,5 +6,5 @@ pluginManagement.repositories {
 rootProject.name = "MathKat"
 
 include("rust-library")
-include("jvm-api")
+include("mathkat-core")
 
