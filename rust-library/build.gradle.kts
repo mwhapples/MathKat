@@ -10,13 +10,13 @@ plugins {
     id("fr.stardustenterprises.rust.wrapper") version "3.2.1"
 }
 
-val buildAllPlatforms: Boolean? by project
+val buildAllPlatforms: String? by project
 
 rust {
     release.set(true)
     cargoInstallTargets.set(true)
     targets {
-        if (buildAllPlatforms?:false) {
+        if (buildAllPlatforms != null) {
             create("win64") {
                 target = "x86_64-pc-windows-gnu"
                 outputName = "mathkat64.dll"
