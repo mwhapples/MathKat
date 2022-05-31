@@ -17,16 +17,17 @@ rust {
     cargoInstallTargets.set(true)
     targets {
         if (buildAllPlatforms?:false) {
-            this += defaultTarget().apply {
-                command = "cargo"
-            }
-        } else {
             create("win64") {
                 target = "x86_64-pc-windows-gnu"
                 outputName = "mathkat64.dll"
             }
             create("win32") {
                 target = "i686-pc-windows-gnu"
+                outputName = "mathkat.dll"
+            }
+        } else {
+            this += defaultTarget().apply {
+                command = "cargo"
             }
         }
     }
