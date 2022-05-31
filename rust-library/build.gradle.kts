@@ -29,11 +29,11 @@ rust {
                 target = "x86_64-unknown-linux-gnu"
                 outputName = "libmathkat64.so"
             }
-            create("linux-aarch64") {
-                target = "aarch64-unknown-linux-gnu"
-                outputName = "libmathkat64.so"
-                command = "cross"
-            }
+            //create("linux-aarch64") {
+            //    target = "aarch64-unknown-linux-gnu"
+            //    outputName = "libmathkat64.so"
+            //    command = "cross"
+            //}
             create("macOS-x64") {
                 target = "x86_64-apple-darwin"
                 outputName = "libmathkat64.dylib"
