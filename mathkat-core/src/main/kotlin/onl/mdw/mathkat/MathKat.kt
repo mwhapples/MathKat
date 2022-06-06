@@ -7,7 +7,10 @@
  */
 package onl.mdw.mathkat
 
-import fr.stardustenterprises.yanl.NativeLoader
+import com.sun.jna.Native
+import com.sun.jna.Platform
+import java.io.File
+import java.io.IOException
 
 /**
  * Basic access to the MathCAT library.
@@ -64,7 +67,15 @@ object MathKat {
     external fun getBraille(navigationId: String = ""): String
 
     init {
-        val loader = NativeLoader.Builder().root("/META-INF/native").build()
-        loader.loadLibrary("mathkat")
+        val baseLibName = "mathkat"
+        val attemptLibraries = listOf("$baseLibName-${Platform.RESOURCE_PREFIX}", baseLibName)
+        val libraryFile = attemptLibraries.firstNotNullOfOrNull(::extractLibrary) ?: throw java.lang.RuntimeException("Unable to extract library, tried ${attemptLibraries.joinToString()}")
+        System.load(libraryFile.absolutePath)
     }
+}
+
+private fun extractLibrary(libraryResource: String): File? = try {
+    Native.extractFromResourcePath("/META-INF/native/${System.mapLibraryName(libraryResource)}")
+} catch (e: IOException) {
+    null
 }

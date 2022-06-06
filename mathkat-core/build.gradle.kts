@@ -15,7 +15,7 @@ plugins {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    implementation("fr.stardustenterprises", "yanl", "0.8.0")
+    implementation("net.java.dev.jna", "jna", "5.11.0")
     rust(project(":rust-library"))
     testImplementation(kotlin("test"))
 }
@@ -44,7 +44,7 @@ val dokkaHtmlJar by tasks.register<Jar>("dokkaHtmlJar") {
 
 rustImport {
     baseDir.set("/META-INF/native")
-    layout.set("hierarchical")
+    layout.set("flat")
 }
 
 publishing {
