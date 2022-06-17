@@ -71,6 +71,7 @@ object MathKat {
         val attemptLibraries = listOf("$baseLibName-${Platform.RESOURCE_PREFIX}", baseLibName)
         val libraryFile = attemptLibraries.firstNotNullOfOrNull(::extractLibrary) ?: throw java.lang.RuntimeException("Unable to extract library, tried ${attemptLibraries.joinToString()}")
         System.load(libraryFile.absolutePath)
+        System.getProperty("onl.mdw.mathkat.rulesDir")?.let { setRulesDir(it) }
     }
 }
 
