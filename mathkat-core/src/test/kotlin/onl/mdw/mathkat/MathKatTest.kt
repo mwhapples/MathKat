@@ -17,20 +17,20 @@ import kotlin.test.assertFailsWith
 class MathKatRulesDirTests {
     @Test
     fun testExceptionForInvalidRulesDirectory() {
-        val invalidRulesDir = File(System.getProperty("onl.mdw.mathkat.rulesDir"), "invalidDir").absolutePath
+        val invalidRulesDir = File(System.getProperty("onl.mdw.mathkat.testRulesDir"), "invalidDir").absolutePath
         val exceptionMessage = assertFailsWith(RuntimeException::class) { MathKat.setRulesDir(invalidRulesDir) }
         val expected = "MathCAT could not find a rules dir -- something failed in installation?\nCould not find rules dir in $invalidRulesDir or lacking permissions to read the dir!\n\n"
         assertEquals(expected, exceptionMessage.message)
     }
     @Test
     fun testSetRulesDirectoryCorrectlyDoesNotExcept() {
-        MathKat.setRulesDir(System.getProperty("onl.mdw.mathkat.rulesDir"))
+        MathKat.setRulesDir(System.getProperty("onl.mdw.mathkat.testRulesDir"))
     }
 }
 class MathKatTest {
     @BeforeTest
     fun configureRules() {
-        MathKat.setRulesDir(System.getProperty("onl.mdw.mathkat.rulesDir"))
+        MathKat.setRulesDir(System.getProperty("onl.mdw.mathkat.testRulesDir"))
     }
     @Test
     fun testGetVersion() {
