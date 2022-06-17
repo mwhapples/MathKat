@@ -23,6 +23,7 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
     systemProperty("onl.mdw.mathkat.testRulesDir", File("$rootDir/MathCAT/Rules").absolutePath)
+    systemProperty("onl.mdw.mathkat.testVersion", "${project.version}")
 }
 
 java {
