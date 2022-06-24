@@ -28,7 +28,7 @@ class MathCatRulesDirTests {
     }
 }
 
-const val BASIC_MATHML = "<math id=\"n1\"><mrow id=\"n2\"><mi id=\"n3\">y</mi><mo id=\"n4\">=</mo><mi id=\"n5\">x</mi><mo id=\"n6\">+</mo><mn id=\"n7\">2</mn></mrow></math>"
+const val BASIC_MATHML = "<math id=\"n1\"><mrow id=\"n2\"><mi id=\"n3\">y</mi><mo id=\"n4\">=</mo><mrow id=\"r0\"><mi id=\"n5\">x</mi><mo id=\"n6\">+</mo><mn id=\"n7\">2</mn></mrow></mrow></math>"
 
 class MathCatTest {
     @BeforeTest
@@ -115,6 +115,25 @@ class MathCatTest {
         val actual = mathCAT {
             setMathml(BASIC_MATHML)
             doNavigateCommand("MoveNext")
+        }
+        assertEquals(expected, actual)
+    }
+    @Test
+    fun testGetNavigationMathml() {
+        val expected = NavigationPosition(" <math id='n1'>\n" +
+                "  <mrow id='n2'>\n" +
+                "    <mi id='n3'>y</mi>\n" +
+                "    <mo id='n4'>=</mo>\n" +
+                "    <mrow id='r0'>\n" +
+                "      <mi id='n5'>x</mi>\n" +
+                "      <mo id='n6'>+</mo>\n" +
+                "      <mn id='n7'>2</mn>\n" +
+                "    </mrow>\n" +
+                "  </mrow>\n" +
+                " </math>\n", 0)
+        val actual = mathCAT {
+            setMathml(BASIC_MATHML)
+            getNavigationMathml()
         }
         assertEquals(expected, actual)
     }

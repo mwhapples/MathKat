@@ -7,6 +7,8 @@
  */
 package onl.mdw.mathcat4j
 
+data class NavigationPosition(val id: String, val offset: Int)
+
 /**
  * The MathCAT API.
  */
@@ -86,4 +88,5 @@ interface MathCat {
      * @return The spoken text resulting from the navigation.
      */
     fun doNavigateCommand(command: String): String
+    fun getNavigationMathml(): NavigationPosition
 }

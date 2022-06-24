@@ -7,8 +7,8 @@
  */
 
 use jni::JNIEnv;
-use jni::objects::{JObject, JString};
-use jni::sys::{jboolean, jint, JNI_TRUE, jsize, jstring};
+use jni::objects::{JClass, JObject, JString, JValue};
+use jni::sys::{jboolean, jint, JNI_TRUE, jobject, jsize, jstring};
 use libmathcat::*;
 use libmathcat::errors::Error;
 
@@ -74,6 +74,28 @@ pub extern "system" fn Java_onl_mdw_mathcat4j_MathCatImpl_doNavigateCommand(env:
     let result = do_navigate_command(command);
     get_string_or_throw(env, result)
 }
+
+#[no_mangle]
+pub extern "system" fn Java_onl_mdw_mathcat4j_MathCatImpl_getNavigationMathml(env: JNIEnv, _obj: JObject) -> jobject {
+    let result = get_navigation_mathml();
+    get_navigation_position_or_throw(env, result)
+}
+
+fn get_navigation_position_or_throw(env: JNIEnv, result: Result<(String, usize), Error>) -> jobject {
+    let cls_str = "onl/mdw/mathcat4j/NavigationPosition";
+    let signature = "(Ljava/lang/String;I)V";
+    match result {
+        Ok((id, offset)) => {
+            let arguments = &[JValue::from(env.new_string(id).expect("Unable to create Java string")), JValue::from(jint::try_from(offset).unwrap())];
+            env.new_object(cls_str, signature, arguments).unwrap().into_inner()
+        },
+        Err(e) => {
+            let _ = env.throw_new("java/lang/RuntimeException", errors_to_string(&e));
+            JObject::null().into_inner()
+        }
+    }
+}
+
 fn get_string_or_throw(env: JNIEnv, result: Result<String, Error>) -> jstring {
     match result {
         Ok(s) => env.new_string(s).expect("Could not create Java String").into_inner(),
