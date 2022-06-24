@@ -18,28 +18,28 @@ class MathCatRulesDirTests {
     @Test
     fun testExceptionForInvalidRulesDirectory() {
         val invalidRulesDir = File(System.getProperty("onl.mdw.mathcat4j.testRulesDir"), "invalidDir").absolutePath
-        val exceptionMessage = assertFailsWith(RuntimeException::class) { MathCatImpl.setRulesDir(invalidRulesDir) }
+        val exceptionMessage = assertFailsWith(RuntimeException::class) { mathCAT { setRulesDir(invalidRulesDir) } }
         val expected = "MathCAT could not find a rules dir -- something failed in installation?\nCould not find rules dir in $invalidRulesDir or lacking permissions to read the dir!\n\n"
         assertEquals(expected, exceptionMessage.message)
     }
     @Test
     fun testSetRulesDirectoryCorrectlyDoesNotExcept() {
-        MathCatImpl.setRulesDir(System.getProperty("onl.mdw.mathcat4j.testRulesDir"))
+        mathCAT { setRulesDir(System.getProperty("onl.mdw.mathcat4j.testRulesDir")) }
     }
 }
 class MathCatTest {
     @BeforeTest
     fun configureRules() {
-        MathCatImpl.setRulesDir(System.getProperty("onl.mdw.mathcat4j.testRulesDir"))
+        mathCAT { setRulesDir(System.getProperty("onl.mdw.mathcat4j.testRulesDir")) }
     }
     @Test
     fun testGetVersion() {
-        assertEquals(System.getProperty("onl.mdw.mathcat4j.testVersion").takeWhile { it != '-' }, MathCatImpl.getVersion())
+        assertEquals(System.getProperty("onl.mdw.mathcat4j.testVersion").takeWhile { it != '-' }, mathCAT { getVersion() })
     }
     @Test
     fun testSetInvalidMathml() {
         val mathml = "Some random string"
-        assertFailsWith(RuntimeException::class) { MathCatImpl.setMathml(mathml) }
+        assertFailsWith(RuntimeException::class) { mathCAT { setMathml(mathml) } }
     }
     @Test
     fun testReturnsWhenSetValidMathml() {
@@ -51,23 +51,25 @@ class MathCatTest {
                 "    <mi id='mkt-4'>x</mi>\n" +
                 "  </mrow>\n" +
                 " </math>\n"
-        assertEquals(expectedMathml, MathCatImpl.setMathml(someMathml))
+        assertEquals(expectedMathml, mathCAT { setMathml(someMathml) })
     }
     @Test
-    fun testSetAndGetPreference() {
-        assertEquals("100.0", MathCatImpl.getPreference("Volume"))
-        MathCatImpl.setPreference("Volume", "50")
-        assertEquals("50", MathCatImpl.getPreference("Volume"))
+    fun testSetAndGetPreference() = mathCAT {
+        assertEquals("100.0", getPreference("Volume"))
+        setPreference("Volume", "50")
+        assertEquals("50", getPreference("Volume"))
     }
     @Test
     fun testGetpreferenceInvalid() {
-        assertFailsWith(RuntimeException::class) { MathCatImpl.getPreference("SomeRandomInvalidPreference") }
+        assertFailsWith(RuntimeException::class) { mathCAT { getPreference("SomeRandomInvalidPreference") } }
     }
     @Test
     fun testGetBrailleAll() {
         val mathml = "<math><mrow><mi>y</mi><mo>=</mo><mi>x</mi><mo>+</mo><mn>2</mn></mrow></math>"
-        MathCatImpl.setMathml(mathml)
         val expected = "⠽⠀⠨⠅⠀⠭⠬⠆"
-        assertEquals(expected, MathCatImpl.getBraille())
+        mathCAT {
+            setMathml(mathml)
+            assertEquals(expected, getBraille())
+        }
     }
 }

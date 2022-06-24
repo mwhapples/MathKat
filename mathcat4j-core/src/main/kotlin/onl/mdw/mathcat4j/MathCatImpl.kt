@@ -17,7 +17,7 @@ import java.io.IOException
  *
  * This object gives you access to the MathCAT functions. This API is designed to be basic, other libraries may build upon this to create higher-level APIs.
  */
-object MathCatImpl : MathCat {
+private object MathCatImpl : MathCat {
     external override fun getVersion(): String
 
     external override fun setRulesDir(dir: String)
@@ -43,4 +43,8 @@ private fun extractLibrary(libraryResource: String): File? = try {
     Native.extractFromResourcePath("/META-INF/native/${System.mapLibraryName(libraryResource)}")
 } catch (e: IOException) {
     null
+}
+
+fun <T> mathCAT(block: MathCat.() -> T): T = synchronized(MathCatImpl) {
+    MathCatImpl.block()
 }
