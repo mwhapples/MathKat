@@ -5,6 +5,7 @@
  *
  * Copyright 2022 Michael Whapples
  */
+@file:JvmName("MathCatTransactional")
 package onl.mdw.mathcat4j
 
 import com.sun.jna.Native
@@ -30,6 +31,12 @@ private object MathCatImpl : MathCat {
 
     external override fun getBraille(navigationId: String): String
 
+    private fun extractLibrary(libraryResource: String): File? = try {
+        Native.extractFromResourcePath("/META-INF/native/${System.mapLibraryName(libraryResource)}")
+    } catch (e: IOException) {
+        null
+    }
+
     init {
         val baseLibName = "mathcat4j"
         val attemptLibraries = listOf("$baseLibName-${Platform.RESOURCE_PREFIX}", baseLibName)
@@ -37,12 +44,6 @@ private object MathCatImpl : MathCat {
         System.load(libraryFile.absolutePath)
         System.getProperty("onl.mdw.mathcat4j.rulesDir")?.let { setRulesDir(it) }
     }
-}
-
-private fun extractLibrary(libraryResource: String): File? = try {
-    Native.extractFromResourcePath("/META-INF/native/${System.mapLibraryName(libraryResource)}")
-} catch (e: IOException) {
-    null
 }
 
 fun <T> mathCAT(block: MathCat.() -> T): T = synchronized(MathCatImpl) {
