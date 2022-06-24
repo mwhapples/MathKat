@@ -120,7 +120,7 @@ class MathCatTest {
     }
     @Test
     fun testGetNavigationMathml() {
-        val expected = NavigationPosition(" <math id='n1'>\n" +
+        val expected = NavigationNode(" <math id='n1'>\n" +
                 "  <mrow id='n2'>\n" +
                 "    <mi id='n3'>y</mi>\n" +
                 "    <mo id='n4'>=</mo>\n" +
@@ -139,7 +139,7 @@ class MathCatTest {
     }
     @Test
     fun testGetNavigationMathmlId() {
-        val expected = NavigationPosition("n1", 0)
+        val expected = NavigationId("n1", 0)
         val actual = mathCAT {
             setMathml(BASIC_MATHML)
             getNavigationMathmlId()

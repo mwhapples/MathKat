@@ -8,12 +8,20 @@
 package onl.mdw.mathcat4j
 
 /**
- * A class to represent navigation position.
+ * Node based navigation position.
  *
- * @param node Either the node XML or ID, depending upon the method used to create the navigation position.
+ * @param node The node XML.
  * @param offset The character offset into the node.
  */
-data class NavigationPosition(val node: String, val offset: Int)
+data class NavigationNode(val node: String, val offset: Int)
+
+/**
+ * Node ID based navigation position.
+ *
+ * @param The ID of the navigation node.
+ * @param The character offset from the node.
+ */
+data class NavigationId(val id: String, val offset: Int)
 
 /**
  * The MathCAT API.
@@ -100,12 +108,12 @@ interface MathCat {
      *
      * @return The navigation position containing the XML of the node.
      */
-    fun getNavigationMathml(): NavigationPosition
+    fun getNavigationMathml(): NavigationNode
 
     /**
      * Get the ID of the current navigation.
      *
      * @return The navigation position containing the node ID.
      */
-    fun getNavigationMathmlId(): NavigationPosition
+    fun getNavigationMathmlId(): NavigationId
 }

@@ -78,22 +78,21 @@ pub extern "system" fn Java_onl_mdw_mathcat4j_MathCatImpl_doNavigateCommand(env:
 #[no_mangle]
 pub extern "system" fn Java_onl_mdw_mathcat4j_MathCatImpl_getNavigationMathml(env: JNIEnv, _obj: JObject) -> jobject {
     let result = get_navigation_mathml();
-    get_navigation_position_or_throw(env, result)
+    get_navigation_position_or_throw(env, "onl/mdw/mathcat4j/NavigationNode", result)
 }
 
 #[no_mangle]
 pub extern "system" fn Java_onl_mdw_mathcat4j_MathCatImpl_getNavigationMathmlId(env: JNIEnv, _obj: JObject) -> jobject {
     let result = get_navigation_mathml_id();
-    get_navigation_position_or_throw(env, result)
+    get_navigation_position_or_throw(env, "onl/mdw/mathcat4j/NavigationId", result)
 }
 
-fn get_navigation_position_or_throw(env: JNIEnv, result: Result<(String, usize), Error>) -> jobject {
-    let cls_str = "onl/mdw/mathcat4j/NavigationPosition";
+fn get_navigation_position_or_throw(env: JNIEnv, cls: &str, result: Result<(String, usize), Error>) -> jobject {
     let signature = "(Ljava/lang/String;I)V";
     match result {
         Ok((id, offset)) => {
             let arguments = &[JValue::from(env.new_string(id).expect("Unable to create Java string")), JValue::from(jint::try_from(offset).unwrap())];
-            env.new_object(cls_str, signature, arguments).unwrap().into_inner()
+            env.new_object(cls, signature, arguments).unwrap().into_inner()
         },
         Err(e) => {
             let _ = env.throw_new("java/lang/RuntimeException", errors_to_string(&e));

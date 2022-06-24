@@ -45,9 +45,9 @@ private object MathCatImpl : MathCat {
 
     external override fun doNavigateCommand(command: String): String
 
-    external override fun getNavigationMathml(): NavigationPosition
+    external override fun getNavigationMathml(): NavigationNode
 
-    external override fun getNavigationMathmlId(): NavigationPosition
+    external override fun getNavigationMathmlId(): NavigationId
 
     private fun extractLibrary(libraryResource: String): File? = try {
         Native.extractFromResourcePath("/META-INF/native/${System.mapLibraryName(libraryResource)}")
