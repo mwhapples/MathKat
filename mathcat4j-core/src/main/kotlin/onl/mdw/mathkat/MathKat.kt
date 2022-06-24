@@ -67,11 +67,11 @@ object MathKat {
     external fun getBraille(navigationId: String = ""): String
 
     init {
-        val baseLibName = "mathkat"
+        val baseLibName = "mathcat4j"
         val attemptLibraries = listOf("$baseLibName-${Platform.RESOURCE_PREFIX}", baseLibName)
         val libraryFile = attemptLibraries.firstNotNullOfOrNull(::extractLibrary) ?: throw java.lang.RuntimeException("Unable to extract library, tried ${attemptLibraries.joinToString()}")
         System.load(libraryFile.absolutePath)
-        System.getProperty("onl.mdw.mathkat.rulesDir")?.let { setRulesDir(it) }
+        System.getProperty("onl.mdw.mathcat4j.rulesDir")?.let { setRulesDir(it) }
     }
 }
 

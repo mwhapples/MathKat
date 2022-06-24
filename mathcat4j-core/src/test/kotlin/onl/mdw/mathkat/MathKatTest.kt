@@ -17,24 +17,24 @@ import kotlin.test.assertFailsWith
 class MathKatRulesDirTests {
     @Test
     fun testExceptionForInvalidRulesDirectory() {
-        val invalidRulesDir = File(System.getProperty("onl.mdw.mathkat.testRulesDir"), "invalidDir").absolutePath
+        val invalidRulesDir = File(System.getProperty("onl.mdw.mathcat4j.testRulesDir"), "invalidDir").absolutePath
         val exceptionMessage = assertFailsWith(RuntimeException::class) { MathKat.setRulesDir(invalidRulesDir) }
         val expected = "MathCAT could not find a rules dir -- something failed in installation?\nCould not find rules dir in $invalidRulesDir or lacking permissions to read the dir!\n\n"
         assertEquals(expected, exceptionMessage.message)
     }
     @Test
     fun testSetRulesDirectoryCorrectlyDoesNotExcept() {
-        MathKat.setRulesDir(System.getProperty("onl.mdw.mathkat.testRulesDir"))
+        MathKat.setRulesDir(System.getProperty("onl.mdw.mathcat4j.testRulesDir"))
     }
 }
 class MathKatTest {
     @BeforeTest
     fun configureRules() {
-        MathKat.setRulesDir(System.getProperty("onl.mdw.mathkat.testRulesDir"))
+        MathKat.setRulesDir(System.getProperty("onl.mdw.mathcat4j.testRulesDir"))
     }
     @Test
     fun testGetVersion() {
-        assertEquals(System.getProperty("onl.mdw.mathkat.testVersion").takeWhile { it != '-' }, MathKat.getVersion())
+        assertEquals(System.getProperty("onl.mdw.mathcat4j.testVersion").takeWhile { it != '-' }, MathKat.getVersion())
     }
     @Test
     fun testSetInvalidMathml() {

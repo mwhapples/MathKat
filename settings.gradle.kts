@@ -3,8 +3,8 @@ pluginManagement.repositories {
     gradlePluginPortal()
 }
 
-rootProject.name = "MathKat"
+rootProject.name = "MathCAT4J"
 
 include("rust-library")
-include("mathkat-core")
+include("mathcat4j-core")
 
