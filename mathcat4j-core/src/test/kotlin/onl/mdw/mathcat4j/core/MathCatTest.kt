@@ -86,7 +86,7 @@ class MathCatTest {
     }
     @Test
     fun testGetSpokenText() {
-        val expected = "y equals x plus 2"
+        val expected = "y is equal to x plus 2"
         val actual = mathCAT {
             setMathml(BASIC_MATHML)
             getSpokenText()
@@ -95,7 +95,7 @@ class MathCatTest {
     }
     @Test
     fun testGetOverviewText() {
-        val expected = "y equals x plus 2"
+        val expected = "y is equal to x plus 2"
         val actual = mathCAT {
             setMathml(BASIC_MATHML)
             getOverviewText()
