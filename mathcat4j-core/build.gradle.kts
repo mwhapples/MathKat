@@ -8,7 +8,7 @@
 plugins {
     kotlin("jvm") version "1.7.0"
     id("org.jetbrains.dokka") version "1.7.0"
-    id("fr.stardustenterprises.rust.importer") version "3.2.1"
+    id("fr.stardustenterprises.rust.importer") version "3.2.5"
     `maven-publish`
     signing
 }

@@ -7,7 +7,7 @@
  */
 
 plugins {
-    id("fr.stardustenterprises.rust.wrapper") version "3.2.1"
+    id("fr.stardustenterprises.rust.wrapper") version "3.2.5"
 }
 
 val buildAllPlatforms: String? by project
