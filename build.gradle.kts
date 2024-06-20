@@ -6,7 +6,7 @@
  * Copyright 2022 Michael Whapples
  */
 plugins {
-    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
+    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
 }
 
 allprojects {
