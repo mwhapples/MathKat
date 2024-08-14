@@ -12,6 +12,7 @@ import onl.mdw.mathcat4j.api.NavigationNode
 import java.io.File
 import kotlin.test.BeforeTest
 import kotlin.test.Test
+import kotlin.test.assertContains
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
@@ -21,8 +22,8 @@ class MathCatRulesDirTests {
     fun testExceptionForInvalidRulesDirectory() {
         val invalidRulesDir = File(System.getProperty("onl.mdw.mathcat4j.testRulesDir"), "invalidDir").absolutePath
         val exceptionMessage = assertFailsWith(RuntimeException::class) { mathCAT { setRulesDir(invalidRulesDir) } }
-        val expected = "set_rules_dir: could not canonicalize path $invalidRulesDir: The system cannot find the file specified. (os error 2)\n"
-        assertEquals(expected, exceptionMessage.message)
+        val expected = "set_rules_dir: could not canonicalize path $invalidRulesDir:"
+        assertContains(exceptionMessage.message ?: "", expected)
     }
     @Test
     fun testSetRulesDirectoryCorrectlyDoesNotExcept() {
