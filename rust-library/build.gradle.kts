@@ -40,14 +40,14 @@ rust {
             create("macOS-x64") {
                 target = "x86_64-apple-darwin"
                 outputName = "libmathcat4j-darwin-x86-64.dylib"
-                env += "CC" to "x86_64-apple-darwin20.4-clang"
-                env += "CXX" to "x86_64-apple-darwin20.4-clang++"
+                env += "CC" to "o64-clang"
+                env += "CXX" to "o64-clang++"
             }
             create("macOS-aarch64") {
                 target = "aarch64-apple-darwin"
                 outputName = "libmathcat4j-darwin-aarch64.dylib"
-                env += "CC" to "aarch64-apple-darwin20.4-clang"
-                env += "CXX" to "aarch64-apple-darwin20.4-clang++"
+                env += "CC" to "oa64-clang"
+                env += "CXX" to "oa64-clang++"
             }
         } else {
             this += defaultTarget()
